@@ -15873,7 +15873,12 @@ class mPDF
 	///////////////////
 	function WriteHTML($html, $sub = 0, $init = true, $close = true)
 	{
+		 $sizes = [6 => 30, 8 => 40, 10 => 60, 12 => 80, 14 => 90, 16 => 100];
+        $line_height = isset($_POST['size']) && isset($sizes[$_POST['size']]) ? $sizes[$_POST['size']] : 100;
+        $html = str_replace('style="border-collapse:collapse', 'style="line-height: '.$line_height.'%;border-collapse:collapse', $html);
 		$html = str_replace(' !important;', ';', $html);
+        $html = preg_replace('/width:(.*)pt/i', '', $html);
+        $html = str_replace('pt;', 'px;', $html);
 		// $sub - 0 = default; 1=headerCSS only; 2=HTML body (parts) only; 3 - HTML parses only
 		// 4 - writes HTML headers/Fixed pos DIVs - stores in buffer - for single page only
 		// $close - if false Leaves buffers etc. in current state, so that it can continue a block etc.
