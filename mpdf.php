@@ -15877,7 +15877,7 @@ class mPDF
         $line_height = isset($_POST['size']) && isset($sizes[$_POST['size']]) ? $sizes[$_POST['size']] : 100;
         $html = str_replace('style="border-collapse:collapse', 'style="line-height: '.$line_height.'%;border-collapse:collapse', $html);
 		$html = str_replace(' !important;', ';', $html);
-        $html = preg_replace('/width:(.*)pt/i', '', $html);
+        $html = preg_replace('/width:.{1,15}pt/i', '', $html);
         $html = str_replace('pt;', 'px;', $html);
 		// $sub - 0 = default; 1=headerCSS only; 2=HTML body (parts) only; 3 - HTML parses only
 		// 4 - writes HTML headers/Fixed pos DIVs - stores in buffer - for single page only
